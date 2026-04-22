@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('books', function (Blueprint $table) {
@@ -19,14 +16,19 @@ return new class extends Migration
             $table->string('publisher');
             $table->string('city');
             $table->string('cover');
-            $table->foreignId('bookshelf_id')->constrained();
+
+            $table->foreignId('bookshelf_id')
+                  ->constrained()
+                  ->cascadeOnDelete();
+
+            $table->foreignId('category_id')
+                  ->constrained()
+                  ->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('books');

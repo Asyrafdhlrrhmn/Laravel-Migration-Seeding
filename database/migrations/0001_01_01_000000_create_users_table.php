@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('npm')->unique();
+            $table->string('npm')->primary(); // PRIMARY KEY sesuai ERD
             $table->string('username');
             $table->string('first_name');
             $table->string('last_name');
@@ -23,12 +22,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // default Laravel (biarkan saja)
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
+        // default Laravel (biarkan saja)
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
